@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.babpool.main.dao.ICalendarDao">
+
+	<select id="getCalendarList"
+		resultType="com.babpool.main.vo.CalendarVO">
+		select
+		  cal_no, cal_title, cal_nick
+		, cal_start, cal_end, cal_people
+		, cal_color, cal_id, cal_del_yn
+		 from calendar
+		where cal_del_yn = 'N'
+	</select>
+	
+	<select id="getTotalRowCount" parameterType="com.babpool.common.vo.SchedulePagingVO"
+	resultType="int">
+	select count(*)
+	from calendar
+	where cal_del_yn = 'N'
+	</select>
+	
+	<select id="getScheduleList"
+		resultType="com.babpool.main.vo.CalendarVO"
+		parameterType="com.babpool.common.vo.SchedulePagingVO">
+		 SELECT *
+		 FROM (SELECT a.*, rownum AS rnum 
+		 		 FROM ( SELECT
+						  cal_no, cal_title, cal_nick, to_char(cal_start, 'YYYY/MM/DD') as cal_start, cal_color
+						 FROM
+						 calendar
+						 WHERE cal_del_yn = 'N'
+						 and cal_start >= sysdate -1
+						 order by cal_start asc
+						 ) a ) b
+						 WHERE rnum between #{firstRow} and #{lastRow}
+	</select>
+	
+	<insert id="toCalendarList" parameterType="com.babpool.main.vo.CalendarVO">
+		INSERT INTO calendar (
+	    cal_no, cal_title, cal_nick
+	    , cal_start, cal_end, cal_color, cal_people
+	    , cal_del_yn, cal_id 
+		) VALUES (
+			calendar_seq.nextval, #{calTitle}, #{calNick}
+		 , #{calStart}, to_date(#{calStart}) + 1, #{calColor}, #{calPeople}
+		 , 'N', #{calId} 
+		)
+	</insert>	
+	
+	<update id="deleteCalendar" parameterType="com.babpool.main.vo.CalendarVO">
+	update calendar
+	set cal_del_yn = 'Y'
+	WHERE cal_no = #{calNo}
+	</update>
+	
+	<select id="getChatCalendar" resultType="com.babpool.main.vo.CalendarVO" parameterType="int">
+		select
+		  cal_no, cal_title, cal_nick
+		, cal_start, cal_end, cal_people
+		, cal_color, cal_id, cal_del_yn
+		 from calendar
+		where cal_del_yn = 'N'
+		and cal_start >= sysdate
+		AND cal_no = #{calNo}
+	</select>
+</mapper>

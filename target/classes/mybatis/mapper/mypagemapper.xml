@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.babpool.member.dao.MypageDao">
+
+	<update id="updateProfile" parameterType="String">
+		UPDATE member SET mem_profile = #{fileName}
+		WHERE mem_id = #{id}
+	</update>
+
+	<select id="updateSession" resultType="com.babpool.member.vo.MemberVO" parameterType="String">
+		SELECT 
+			mem_id  , mem_name  , mem_nickname   
+    		, mem_pass   , mem_email   , mem_birth
+    		, mem_address    , mem_gender    , mem_food_code
+    		, mem_level    , mem_phone    , mem_role
+    		, mem_profile , mem_address2 , regist_type , mem_manager
+    	FROM
+    		member
+    	WHERE mem_profile = #{fileName}
+	</select>
+	
+	<update id="defaultProfile" parameterType="String">
+		UPDATE member SET mem_profile = '프사'
+		WHERE mem_id = #{id}
+	</update>
+	
+	<delete id="memberDrop" parameterType="String">
+		DELETE FROM member
+		WHERE mem_id = #{id}	
+	</delete>
+	
+	<select id="getmyMarket" resultType="com.babpool.market.vo.MarketVO" parameterType="com.babpool.member.vo.MyPageVO">
+	
+	 SELECT * FROM
+	 (SELECT a.*, rownum AS rnum FROM(
+	 	SELECT market_no  , market_title   , market_content
+	    , market_nickname   , to_char(market_reg_date,'YYYY-MM-DD') as market_reg_date   , market_mod_date
+	    , market_del_yn   , market_com_yn   , market_category   , market_price
+	    , market_id
+	 FROM market
+	 WHERE market_nickname = #{memNickname}
+	 ORDER BY market_no desc
+	 )a )b
+	 WHERE rnum between #{firstRow} and #{lastRow}
+	 
+	</select>
+	
+	<select id="getMarketTotal" parameterType="com.babpool.member.vo.MyPageVO" resultType="int">
+		SELECT count(*)
+		FROM market
+		WHERE market_nickname = #{memNickname}
+	</select>
+	
+	<select id="getmyFreeBoard" resultType="com.babpool.free.vo.FreeBoardVO" parameterType="com.babpool.member.vo.MyPageVO">
+			SELECT * FROM
+		 (SELECT a.*, rownum AS rnum FROM(
+		 	SELECT free_board_no   , free_board_category   , free_board_title
+			    , free_board_content   , free_board_writer   , free_board_like
+			    , to_char(free_board_reg_date,'YYYY-MM-DD') as free_board_reg_date  , free_board_mod_date  , free_board_del_yn
+			    , free_board_pass  , free_board_writernick
+		 FROM free_board
+		 WHERE free_board_writernick = #{memNickname}
+		 ORDER BY free_board_no desc
+		 )a )b
+		 WHERE rnum between #{firstRow} and #{lastRow}
+	</select>
+	
+	<select id="getFreeBoardTotal" parameterType="com.babpool.member.vo.MyPageVO" resultType="int">
+		SELECT count(*)
+		FROM free_board
+		WHERE free_board_writernick = #{memNickname}
+	</select>
+	
+	<select id="getFavoritemember" parameterType="String" resultType="com.babpool.member.vo.FavoriteMemberVO">
+		SELECT mem_id, fav_memid, fav_memnick
+		FROM member_favorite
+		WHERE mem_id = #{memId}
+	</select>
+	
+	<select id="getBlockmember" parameterType="String" resultType="com.babpool.member.vo.BlockMemberVO">
+		SELECT mem_id , block_memid , block_memnick
+		FROM member_block
+		WHERE mem_id = #{memId}
+	</select>
+	
+	<insert id="insertFavMember" parameterType="String">
+		INSERT INTO member_favorite(
+			mem_id, fav_memid, fav_memnick
+		) VALUES (
+		  #{myMemId}, #{favMemId}, #{favMemNick}
+		)
+	</insert>
+	
+	<insert id="insertBlockMember" parameterType="String">
+		INSERT INTO member_block(
+			mem_id, block_memid, block_memnick
+		) VALUES (
+		  #{myMemId}, #{blockMemId}, #{blockMemNick}
+		)
+	</insert>
+	
+	<select id="favOverlap" parameterType="String" resultType="com.babpool.member.vo.FavoriteMemberVO">
+		SELECT mem_id, fav_memid, fav_memnick
+		FROM member_favorite
+		WHERE mem_id = #{myMemId}
+		AND fav_memid = #{favMemId}
+	</select>
+
+	<select id="blockOverlap" parameterType="String" resultType="com.babpool.member.vo.BlockMemberVO">
+		SELECT mem_id, block_memid, block_memnick
+		FROM member_block
+		WHERE mem_id = #{myMemId}
+		AND block_memid = #{blockMemId}
+	</select>
+	
+	<delete id="deleteFavMember" parameterType="String">
+		DELETE FROM member_favorite
+		WHERE mem_id = #{myMemId}
+		AND fav_memid = #{favMemId}
+	</delete>
+	
+	<delete id="deleteBlockMember" parameterType="String">
+		DELETE FROM member_block
+		WHERE mem_id = #{myMemId}
+		AND block_memid = #{favMemId}
+	</delete>
+	
+	<update id="avgplusorminus" parameterType="map">
+		UPDATE member SET mem_level = #{otherMemberAvg}
+		WHERE mem_id = #{otherMemberId}
+	</update>
+	
+
+</mapper>

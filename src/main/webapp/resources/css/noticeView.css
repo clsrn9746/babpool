@@ -1,0 +1,322 @@
+@font-face {
+    font-family: 'InfinitySans-RegularA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+	margin: 0 auto;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+	color: black;
+   font-family: 'InfinitySans-RegularA1';
+}}
+
+#wrap {
+	width: 1600px;
+	height: 100%;
+}
+
+
+/* content */
+
+ .title {
+	height: 80px;
+	font-size: 40px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.title-under {
+	height: 40px;
+	width: 100px;
+	border-top: solid 2px black;
+}
+
+.head-nav a {
+	font-size: 18px;
+	color: #999999;
+}
+
+.head-nav a:hover {
+	color: black;
+	text-decoration: underline;
+}
+
+.head-nav {
+	display: flex;
+	width: 400px;
+	font-weight: bold;
+}
+
+.buttons {
+	margin-top: 52px;
+	display: flex;
+	height: 215px;
+}
+
+.service_button {
+	display: flex;
+	flex: 1 1;
+	background-color: #f8f8f8;
+	cursor: pointer;
+	flex-direction: column;
+	height: 100%;
+	text-align: center;
+	justify-content: center;
+}
+
+.service_title {
+	margin-top: 12px;
+	font-size: 20px;
+}
+
+.service_content {
+	margin-top: 12px;
+	font-size: 13px;
+	color: gray;
+}
+
+.service_button:nth-child(2) {
+	margin-left: 28px;
+}
+
+.content {
+	height: 150px;
+	padding-top: 75px;
+}
+
+.content_title {
+	padding: 20px;
+	font-weight: bold;
+	font-size: 20px;
+	margin-left: 30px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+section.noticewrite {
+  padding: 20px 0;
+}
+
+.page-title {
+  margin-bottom: 60px;
+}
+.page-title h3 {
+  font-size: 28px;
+  color: #333333;
+  font-weight: 400;
+  text-align: center;
+}
+
+#editor_form {
+  width: 800px;
+}
+
+#div_table {
+  text-align: center;
+  font-size: 15px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+#div_table th, #div_table td {
+  padding: 14px 0;
+}
+
+#div_table tbody td {
+  border-bottom: 1px solid #e7e7e7;
+  text-align: center;
+}
+
+#div_table tbody th {
+  padding-left: 28px;
+  padding-right: 14px;
+  border-top: 1px solid #e7e7e7;
+  text-align: left;
+}
+
+#div_table tbody th p{
+  display: none;
+}
+
+#div_table .td_left{
+  text-align: center;
+}
+.td_right > input{
+  width: 100%;
+  height: 25px;
+  border: none;
+  border-bottom: 1px solid #999;
+}
+
+.td_right > textarea{
+  width: 100%;
+  height: 300px;
+  border-radius: 5px;
+  border: none;
+  font-size: 15px;
+  outline: none;
+}
+
+#div_button{
+  height: 100px;
+  margin-top: 50px;
+  margin-right: 20px;
+}
+
+/* #div_button input{ */
+/*   padding: 5px;  */
+/*   border: none; */
+/*   border-radius: 5px; */
+/*   margin-left: 10px; */
+/*   position: relative; */
+/*   bottom: 100px; */
+/* } */
+
+#div_button{
+  text-align: right;
+}
+
+#file_title, #file_area > input {
+	border-bottom: none;
+}
+
+.form-inline {
+	float: left;
+}
+
+.attach-button {
+	background-color: #f8f8f8;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	font-size: 13px;
+	border-radius: 6px;
+	text-align: center;
+	float: right;
+	border: 0;
+	margin-right: 10px;
+}
+
+/* 버튼 액션추가 */
+#div_button > input:active{
+  transform:translate(2px,2px);
+}
+
+/* reset */
+
+.clearfix:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.container {
+  width: 1100px;
+  margin: 0 auto;
+}
+.blind {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  width: 1px;
+  height: 1px;
+}
+
+.edit_button{
+	display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+	padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+    background-color: #fff ;
+    border-color:  #fff  ;
+    color : black;
+    
+}
+.btn-del{
+	background : transparent;
+}
+button{
+	background : transparent;
+	border : none;
+	padding: 5px 10px;
+   font-size: 12px;
+}
+.re_row_name{
+	height : 40px;
+}
+.re_row_name .text-left{
+	line-height : 40px;
+}
+.btn-danger{
+   background-color: #fff ;
+   border-color:  #fff  ;
+	color : black;
+/* 	pointer-events: none;
+	cursor : pointer !important; */
+}
+.btn-info{
+	margin-left : -10px !important;
+}
+.modal-header .{
+	border: none;
+    height: 40px;
+    margin-top: -5px !important;
+    margin-bottom: 5px !important;
+
+}
+.modal-title{
+	float : left;
+	line-height : 40px;
+}
+.btn_box{
+	float :right;
+	
+}
+.re_date{
+	text-align : right;
+}
+.btn_reply_regist{
+   background-color: #fff ;
+   border-color:  #fff  ;
+	color : black;	
+}
+.re_date{
+	margin-bottom : 0;
+}
+
+.re_reply_button{
+	background : transparent;
+	border : none;
+	
+}
+
+textarea{
+	resize:none;
+}

@@ -1,0 +1,49 @@
+/* footer */
+.footer {
+	clear: both;
+	height: 200px;
+	background-color: black;
+}
+
+
+.footer div, .footer span {
+	color: white !important;
+	text-align: left;
+}
+
+.logo_title {
+	color: white !important;
+	position: relative;
+	font-size: 16px;
+}
+
+.footeraddr {
+	position: relative;
+	font-size: 15px;
+	margin-top: 50px;
+	text-align: center;
+}
+
+.footeraddr>p {
+	color: white !important;
+	margin-top: 15px;
+}
+
+.sns_section {
+	position: relative;
+	top: 30px;
+}
+
+.sns_section > a {
+	margin-left: 10px;
+}
+
+.sns_section > a:nth-child(1) {
+	margin-left: 0px;
+}
+
+.footercontent {
+	margin-left: 100px;
+}
+
+/* footer e */

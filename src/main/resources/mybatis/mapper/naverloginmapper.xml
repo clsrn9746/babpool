@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.babpool.naverLogin.INaverLoginDao">
+
+	<select id="findNaverMember" resultType="com.babpool.member.vo.MemberVO" parameterType="String">
+	SELECT
+    mem_id  , mem_name  , mem_nickname   
+    , mem_pass   , mem_email   , mem_birth
+    , mem_address    , mem_gender    , mem_food_code
+    , mem_level    , mem_phone    , mem_role
+    , mem_profile , mem_address2 , regist_type , mem_manager
+	FROM
+    	member
+    WHERE
+    	mem_email = #{email }
+    AND
+    	regist_type = 'naver'
+	</select>
+	
+	<insert id="registNaver" parameterType="com.babpool.member.vo.MemberVO">
+	INSERT INTO member (
+   		mem_id   , mem_name  , mem_nickname
+   		, mem_pass   , mem_email   , mem_birth
+   		, mem_address   , mem_gender   , mem_food_code
+   		, mem_level   , mem_phone   , mem_role
+   		, mem_profile , mem_address2 , regist_type , mem_manager
+		) VALUES (
+   		 #{memId} , #{memName} , #{memNickname}
+   		,#{memPass}, #{memEmail}, #{memBirth}
+   		,#{memAddress}, #{memGender}, #{memFoodCode}
+   		, 5 		, #{memPhone}, 'N'
+   		,'프사'     , #{memAddress2} , 'naver' , 'n'
+		)
+	</insert>
+
+
+
+
+
+</mapper>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.babpool.reply.dao.IReplyDao">
+
+<!-- 	댓글리스트 조회 -->
+	<select id="getReplyList" resultType="com.babpool.reply.vo.ReplyVO">
+		select
+	        re_no
+	        ,re_content
+	        ,re_reg_date
+	        ,re_parent_id
+	        ,re_writer_id
+	 
+		from  reply
+		where re_board_no = #{reBoardNo}
+	</select>
+
+	<select id="getReplyCountByParent" parameterType="com.babpool.reply.vo.ReplySearchVO" 
+	resultType="int">
+		SELECT count(*) 
+		FROM reply
+		WHERE re_board_no=#{reBoardNo}
+	</select>
+
+	<select id="getReplyListByParent" parameterType="com.babpool.reply.vo.ReplySearchVO" 
+	resultType="com.babpool.reply.vo.ReplyVO">
+<!-- 	<include refid="common.prePage" />
+			SELECT
+		    re_no, re_parent_no
+		    , re_content
+		    , to_char(re_reg_date,'YYYY-MM-DD') AS re_reg_date
+		    , to_char(re_mod_date,'YYYY-MM-DD') AS re_mod_date
+		    ,re_secret
+            , b.mem_name as re_mem_name
+		FROM
+		    reply1 a , member b
+        where a.re_writer_id = b.mem_id
+		ORDER by re_no desc    
+		
+		<include refid="common.postPage" />  mem id  있을 대 사용 쿼리-->
+		 
+ 			select 
+			        b.re_no  as re_no
+			        ,b.re_board_no as re_board_no
+			        ,b.re_writer as re_writer
+			        ,b.re_writer_id as re_writer_id
+			        ,b.re_content as re_content
+			        ,to_char(b.re_reg_date,'YYYY-MM-DD') as re_reg_date 
+			        ,to_char(b.re_mod_date,'YYYY-MM-DD') as re_mod_date
+			        ,b.re_secret as re_secret
+			        ,b.re_parent_id  as re_parent_id
+			        ,level as lv
+			from free_board a , reply b
+			where a.free_board_no = b.re_board_no
+			and b.re_board_no = #{reBoardNo}
+			start with re_parent_id =0 
+			connect by NOCYCLE prior b.re_no = b.re_parent_id
+			order siblings by b.re_reg_date desc 
+		 
+<!--  		 SELECT
+		    re_no, re_board_no,RE_WRITER
+		    , re_content
+		    , to_char(re_reg_date,'YYYY-MM-DD') AS re_reg_date
+		    , to_char(re_mod_date,'YYYY-MM-DD') AS re_mod_date
+		    , re_secret
+		    , re_parent_id
+		FROM
+		    reply1 
+		ORDER by re_no desc --> 
+	</select> 
+
+	 <!-- 댓글수정 -->
+	<update id="updateReply" parameterType="com.babpool.reply.vo.ReplyVO">
+		UPDATE	 REPLY
+		SET	 RE_CONTENT = #{reContent}
+		WHERE RE_NO=#{reNo}
+	</update>
+	
+	<!-- 댓글삭제 -->
+	<delete id="deleteReply" parameterType="com.babpool.reply.vo.ReplyVO">
+		DELETE FROM REPLY
+		WHERE RE_NO=#{reNo}
+	</delete>
+
+<!-- 	 선택된 댓글 조회 -->
+	<select id="selectReply" resultType="com.babpool.reply.vo.ReplyVO">
+		SELECT 
+			re_board_no,RE_NO,RE_WRITER,RE_REG_DATE,RE_CONTENT,re_writer_id, re_parent_id
+		FROM REPLY
+		WHERE RE_NO=#{reNo}
+	
+	</select>
+	
+	<insert id="insertReply" parameterType="com.babpool.reply.vo.ReplyVO">
+		INSERT INTO reply(
+		    re_no ,  re_board_no
+		    , re_writer, re_content,re_writer_id
+		    , re_reg_date, re_mod_date 
+		    , re_secret, re_parent_id
+		  
+			) VALUES (
+			   reply_seq.nextval, #{reBoardNo}
+			   ,#{reWriter},#{reContent},#{reWriterId}
+			   ,sysdate, null 
+			   ,#{reSecret} , #{reParentId}
+		)
+	</insert>
+
+
+
+</mapper>

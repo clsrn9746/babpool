@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.babpool.chatRoom.dao.IChatRoomDao">
+
+<insert id="insertChatRoom" parameterType="com.babpool.chatRoom.vo.ChatRoomVO">
+	INSERT INTO chat_room (
+    chat_room_id
+    , chat_room_name
+    , master_id
+    , chat_people
+    , chat_count
+	) VALUES (
+	    #{chatRoomId}
+	    , #{chatRoomName}
+	    , #{masterId}
+	    , #{chatPeople}
+	    , #{chatCount}
+	);
+</insert>
+
+<select id="getChatCal" resultType="com.babpool.main.vo.CalendarVO" parameterType="int">
+	SELECT
+	  cal_no, cal_title, cal_nick
+	, cal_start, cal_end, cal_people
+	, cal_color, cal_id, cal_del_yn
+	 FROM calendar
+	WHERE cal_del_yn = 'N'
+	AND cal_no = #{calNo}
+</select>
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.babpool.food.dao.IRecommendDao">
+
+
+	<select id="getRecommendList" resultType="com.babpool.food.vo.FoodVO"
+	  parameterType="com.babpool.common.vo.SearchVO">
+<!-- 		SELECT * -->
+<!-- 		FROM food  -->
+			select *
+			from food
+			where today_yn ='Y'
+	</select>
+	
+	
+	<select id="getTodayKey" resultType="String"  parameterType="com.babpool.food.vo.TodayKeywordsVO">
+			select *
+			from TODAY_KEYWORDS
+	</select>
+
+<!-- 	<sql id="freeBoardSearch"> -->
+<!-- 		<if -->
+<!-- 			test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchWord)"> -->
+<!-- 			AND free_board_title LIKE '%' || #{searchWord} || '%' -->
+<!-- 		</if> -->
+<!-- 	</sql> -->
+
+	<select id="getTotalRowCount"
+		parameterType="com.babpool.common.vo.PagingVO" resultType="int">
+		SELECT count(*)
+		FROM FOOD	
+	</select>
+	
+	<select id="getRecommendUser" resultType="int" parameterType="com.babpool.food.vo.RecommendVO">
+		select count(*)
+		from recommend
+		where member_id = #{memberId}
+		and recommend_date = to_char(sysdate, 'YYYYMMDD') 
+	</select>
+
+	<insert id="insertRecommend" parameterType="com.babpool.food.vo.RecommendVO"	>
+		INSERT INTO recommend (
+		    member_id    , food_no    , recommend_date
+		    , recommend_score    , member_nicname    , member_profile
+    	) VALUES (
+			#{memberId}, #{foodNo} , to_char(sysdate,'YYYYMMDD'), #{recommendScore}
+			,#{memberNicname},#{memberProfile}
+		)
+	</insert>
+	
+	<select id="findRecommend" resultType="com.babpool.food.vo.RecommendVO" parameterType="String">
+		SELECT member_id
+		FROM recommend
+		WHERE member_id = #{id}
+		GROUP BY  member_id
+	</select>
+	
+	
+
+
+
+
+
+
+
+
+</mapper>

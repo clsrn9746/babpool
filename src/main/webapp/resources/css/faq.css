@@ -1,0 +1,150 @@
+
+@font-face {
+    font-family: 'InfinitySans-RegularA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+	margin: 0 auto;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+	color: black;
+    font-family: 'InfinitySans-RegularA1';
+}
+
+
+#wrap {
+	width: 1600px;
+	height: 100%;
+}
+
+/* content */
+
+.content {
+	height: 150px;
+	padding-top: 75px;
+}
+
+.title {
+	height: 80px;
+	font-size: 40px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.title-under {
+	height: 40px;
+	width: 100px;
+	border-top: solid 2px black;
+}
+
+.head-nav a {
+	font-size: 18px;
+	color: #999999;
+}
+
+.head-nav a:hover {
+	color: black;
+	text-decoration: underline;
+}
+
+.head-nav {
+	display: flex;
+	width: 400px;
+	font-weight: bold;
+}
+
+.buttons {
+	margin-top: 52px;
+	display: flex;
+	height: 215px;
+}
+
+.service_button {
+	display: flex;
+	flex: 1 1;
+	background-color: #f8f8f8;
+	cursor: pointer;
+	flex-direction: column;
+	height: 100%;
+	text-align: center;
+	justify-content: center;
+}
+
+.service_title {
+	margin-top: 12px;
+	font-size: 20px;
+}
+
+.service_content {
+	margin-top: 12px;
+	font-size: 13px;
+	color: gray;
+}
+
+.service_button:nth-child(2) {
+	margin-left: 28px;
+}
+
+.body- {
+	width: 100%;
+	height: 600px;
+}
+
+.accoArea {
+	width: 800px;
+	height: 300px;
+	margin: 0 auto;
+}
+
+.accoArea {
+	display: block;
+	box-sizing: border-box;
+	padding-top: 50px;
+	height: auto;
+	overflow: hidden;
+}
+
+.accoArea .accTit {
+	display: block;
+	background: url('../images/arrow_down.png') no-repeat 98% center;
+	border-top: 2px solid #ccc;
+	margin-top: -1px;
+	padding: 10px 0;
+	width: 100%;
+	font-size: 18px;
+	font-weight: 500;
+	text-indent: 3%;
+	color: #20253a;
+}
+
+.accoArea .accTit.on {
+	background: url('../images/arrow_up.png') no-repeat 98% center;
+}
+
+.accoArea .accBox {
+	display: none;
+}
+
+.accoArea .accBox:last-child {
+	border-bottom: 2px solid #ccc;
+}
+
+.accoArea .accBox ul {
+	margin: 0 auto;
+	padding: 10px 0;
+	width: 95%;
+}
+
+.accoArea .accBox li {
+	position: relative;
+	padding-left: 10px;
+	margin-bottom: 10px;
+	font-size: 16px;
+}
+/* .accoArea .accBox li:after{content:'';  position:absolute; top:7px; left:0; background:#999;border-radius:10px; width:5px;height:5px; font-size:15px;font-weight:300;} */
+
+/* content e */

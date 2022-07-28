@@ -1,0 +1,369 @@
+body{
+    padding: 0;
+    margin: 0;
+  }
+  div{
+    box-sizing: border-box;
+  }
+  
+  /* alert badge */
+  .circle{
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 2.5px;
+    background-color: #ff0000;
+    position: absolute;
+    top: -5px;
+    left: 110%;
+  }
+  
+  /* 녹색 텍스트 */
+  .green{
+    color: #24855b;
+  }
+  
+  .wrap{
+    background-color: #F8F8F8;  
+  }
+  /* 녹색배경 */
+  .greenContainer{  
+    height: 300px;
+    background-color: #24855b;    
+    
+    display: flex;
+    align-items: flex-end;
+    padding: 16px;
+  }
+
+  .greenContainer .name{
+    font-weight: bold;
+    color: #ffffff;
+  } 
+  .greenContainer .modify{
+    margin-left: auto;
+  }
+  
+  /* 단골상점 , 상품후기 , 적립금 박스 */
+  .summaryContainer{
+    background-color: white;  
+    display: flex;  
+    padding: 21px 16px;  
+    height: 450px;
+    margin-bottom: 10px;
+  }
+
+  .summaryContainer:nth-child(3) .title{
+    font-size: 20px;
+  }
+  
+  /* 첫번째 프로필 div */
+  .summaryContainer:nth-child(2){
+    height: 300px;
+  }
+  /* 단골상점 , 상품후기 , 적립금 */
+  .summaryContainer .profiles  {
+    font-size: 15px;
+    margin-right: 35px;
+    flex-grow: 1
+  }
+  /* 녹색 숫자 */
+  .summaryContainer .number{
+    font-size: 19px;
+    font-weight: bold;
+    color: #24855b;
+  }
+  /* 텍스트 */
+  .summaryContainer .item > div:nth-child(2){
+    /* font-size: 13px; */
+  }
+  
+  /* ================== 주문/배송조회 박스 시작 ==================== */
+  .shippingStatusContainer{
+    padding: 21px 16px;
+    background-color: white;
+    margin-bottom: 10px;
+  }
+  
+  /* 주문/배송조회 타이틀 */
+.title{
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  /* 장바구니 결제완료 배송중 구매확정 [로우] */
+  .shippingStatusContainer .status{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 21px;
+  }
+  /* 장바구니 결제완료 배송중 구매확정 [아이템]  */
+  .shippingStatusContainer .item{
+    display: flex;
+  }
+  
+  .shippingStatusContainer .number{
+    font-size: 31px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .shippingStatusContainer .text{
+    font-size: 12px;
+    font-weight: normal;
+    color: #c2c2c2;
+    text-align: center;
+  }
+  .shippingStatusContainer .icon{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    width: 16px;
+    height: 16px;
+  }
+  
+  
+  /*=================== 주문목록 ~ 찜한상품 리스트 ==================*/
+  /* .listContainer{  
+    padding: 0;
+    background-color: #ffffff;
+    margin-bottom: 10px;
+  }
+  .listContainer .item{  
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    color: black;
+    text-decoration: none;  
+    height: 56px;
+    box-sizing: border-box;
+  }
+  .listContainer .icon{  
+    margin-right: 14px;
+  }
+  .listContainer .text{
+    font-size: 16px;
+    position: relative;
+  }
+  .listContainer .right{
+    margin-left: auto;
+  } */
+  
+  
+  /*=================== 내지갑의 보유 적립금 들어가는 부분 ================*/
+  .listContainer .smallLight{
+    font-size: 14px;
+    color: #c2c2c2;  
+  }
+  .listContainer .smallLight > span{
+    margin-left: 10px;
+  }
+  
+  .listContainer .right .blct{
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  
+  
+  /* 공지사항 이용안내 고객센터 */
+  .infoContainer{
+    background-color: white; 
+    display: flex;
+    height: 100px;
+    margin-bottom: 10px;    
+  }
+  
+  .infoContainer .item{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 13px;
+    text-decoration: none;
+    color: black;
+  }
+  .infoContainer .item > div:first-child{
+    margin-bottom: 2px;
+  }
+  
+  
+  
+  /*  */
+  .listContainer .item:hover{
+  /*   background-color: #f8f8f8; */
+  }
+  .infoContainer .item:hover{
+  /*   background-color: #f8f8f8; */
+  }
+
+.box {
+    position: relative;
+    bottom: 60px;
+    left: 20px;
+    width: 200px;
+    height: 200px; 
+    border-radius: 20%;
+    overflow: hidden;
+    border: solid white 3px;
+}
+.profile {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.name{
+    position: absolute;
+    left: 270px;
+    top: 50px;
+    font-size: 30px;
+}
+
+ /* input file의 기본 모습을 제거 */
+#profileimg{
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#profileimg + label {
+    /* border: 1px solid #d9e1e8; */
+    background-color: #fff;
+    /* color: #2b90d9; */
+    border-radius: 2rem;
+    padding: 8px 17px 8px 17px;
+    font-weight: 350;
+    font-size: 15px;
+    /* box-shadow: 1px 1px 1px 0px #f2f2f2; */
+    outline: none;
+}
+
+#profileimg:focus + label,
+#profileimg + label:hover {
+    cursor: pointer;
+}
+
+ /* input file의 기본 모습을 제거 */
+#upload{
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#upload + label {
+    /* border: 1px solid #d9e1e8; */
+    background-color: #fff;
+    /* color: #2b90d9; */
+    border-radius: 2rem;
+    padding: 8px 17px 8px 17px;
+    font-weight: 350;
+    font-size: 15px;
+    /* box-shadow: 1px 1px 1px 0px #f2f2f2; */
+    outline: none;
+}
+
+#management, #pwchangebtn{
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#management + label , #pwchangebtn + label{
+    /* border: 1px solid #d9e1e8; */
+    background-color: #fff;
+    /* color: #2b90d9; */
+    border-radius: 2rem;
+    padding: 8px 17px 8px 17px;
+    font-weight: 350;
+    font-size: 15px;
+    /* box-shadow: 1px 1px 1px 0px #f2f2f2; */
+    outline: none;
+}
+
+#upload:focus + label, #upload + label:hover,
+#management:focus + label, #management + label:hover,
+#pwchangebtn:focus + label, #pwchangebtn + label:hover
+{
+    cursor: pointer;
+}
+
+.profileimg{
+    position: absolute;
+    top : 245px;
+    left: 40px;
+}
+
+.profile_upload{
+    position: absolute;
+    top : 245px;
+    left : 160px;
+}
+
+.management{
+    position: absolute;
+    top : 21px;
+    right: 25px;
+}
+
+.pwchange{
+	position: absolute;
+	top : 245px;
+	right: 25px;
+}
+
+.jumsu {
+    position: relative;
+    top: 30px;
+    right: 30px;
+  }
+
+.avg  {
+    position: relative;
+    font-size: 40px;
+    bottom: 33px;
+    left: 60px;
+  }
+
+.table{
+  font-size: 18px;
+  /* border-collapse: separate;
+  border-spacing: 0 10px; */
+}
+
+#fix, #likebtn, #likefix, #phonebtn, #phonefix{
+  float: right;
+  padding: 1px 10px;
+}
+
+#likefood{
+	width: 36%;
+	display: unset;
+}
+
+.board_title{
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#mem_phone{
+	display: revert;
+	width: 150px;
+}
+
+.click{
+	cursor: pointer;
+}

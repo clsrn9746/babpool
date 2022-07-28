@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.babpool.notice.dao.INoticeDao">
+	<sql id="noticeSearch">
+		<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchWord)">
+			AND notice_title LIKE '%' || #{searchWord} || '%'
+		</if>
+	</sql>
+	<select id="getTotalRowCount" parameterType="com.babpool.common.vo.SearchVO" resultType="int">
+		SELECT count(*)
+		FROM notice
+		WHERE notice_del_yn = 'N'
+		<include refid="noticeSearch"></include>
+	</select>
+	
+	<select id="getNoticeList" resultType="com.babpool.notice.vo.NoticeVO">
+		SELECT *
+		FROM( SELECT a.*, rownum AS rnum FROM (
+			SELECT 	
+			notice_no         
+	    	, notice_title    , notice_content  , notice_writer
+	    	, notice_like     
+	    	, to_char(notice_reg_date, 'YYYY-MM-DD HH24:MI') as notice_reg_date
+      		, to_char(notice_mod_date, 'YYYY-MM-DD HH24:MI') as notice_mod_date
+	    	, notice_del_yn   , notice_pass
+	    	FROM notice
+	    	WHERE notice_del_yn = 'N'
+	    	<include refid="noticeSearch"></include>
+	    	ORDER BY notice_no DESC
+		)a)b
+		WHERE rnum between #{firstRow} and #{lastRow}	
+	</select>
+	
+	<select id="getMainNoticeList" resultType="com.babpool.notice.vo.NoticeVO">
+		SELECT * FROM (
+		SELECT a.*, rownum AS rnum FROM     
+		(SELECT 	
+			notice_no         
+	    	, notice_title    , notice_content  , notice_writer
+	    	, notice_like     
+	    	, to_char(notice_reg_date, 'YYYY-MM-DD HH24:MI') as notice_reg_date
+      		, to_char(notice_mod_date, 'YYYY-MM-DD HH24:MI') as notice_mod_date
+	    	, notice_del_yn   , notice_pass
+	    	FROM notice
+		ORDER BY notice_reg_date DESC) a ) b
+		WHERE rnum BETWEEN 1 AND 2
+	</select>
+	
+	<select id="getNotice" resultType="com.babpool.notice.vo.NoticeVO" parameterType="int">
+		SELECT 	
+		notice_no         
+    	, notice_title    , notice_content  , notice_writer
+    	, notice_like     
+    	, to_char(notice_reg_date, 'YYYY-MM-DD HH24:MI') as notice_reg_date
+      	, to_char(notice_mod_date, 'YYYY-MM-DD HH24:MI') as notice_mod_date
+    	, notice_del_yn   , notice_pass
+    	FROM notice
+    	WHERE notice_no = #{noticeNo}
+	</select>
+	
+	<insert id="insertNotice" parameterType="com.babpool.notice.vo.NoticeVO">
+		INSERT INTO notice (
+	    notice_no         
+	    , notice_title    , notice_content  , notice_writer
+	    , notice_like     , notice_reg_date , notice_mod_date
+	    , notice_del_yn   , notice_pass
+		) VALUES (
+		    notice_seq.nextval  					
+		    , #{noticeTitle}        , #{noticeContent} 	, '밥풀 관리자'
+		    , 0                 		, sysdate           	, null
+		    , 'N'               		, '1004'
+		)
+	</insert>
+	
+	<update id="updateNotice" parameterType="com.babpool.notice.vo.NoticeVO">
+		UPDATE notice SET
+			  notice_title = #{noticeTitle}
+			, notice_content = #{noticeContent}
+			, notice_mod_date = sysdate
+		WHERE notice_no = #{noticeNo}
+		
+		
+	</update>
+	<update id="deleteNotice" parameterType="com.babpool.notice.vo.NoticeVO">
+		UPDATE notice SET
+			notice_del_yn = 'Y'
+		WHERE notice_no = #{noticeNo}
+	</update>
+</mapper>

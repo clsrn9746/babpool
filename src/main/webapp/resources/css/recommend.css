@@ -1,0 +1,142 @@
+@font-face {
+    font-family: 'InfinitySans-RegularA1';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    color: black;
+   font-family: 'InfinitySans-RegularA1';
+    list-style: none;
+    text-decoration: none;
+    padding: 0;
+    margin: 0 auto;
+    box-sizing: border-box;
+	margin: 0 auto;
+}
+
+#wrap {
+	width: 1600px;
+	height: 100%;
+}
+
+.wordCloud{
+	width:90%;
+	height:450px;
+}
+.wordCloud{
+	margin:0 auto;
+	margin-bottom:50px;
+}
+/* .wordCloudWrap img{ */
+/* 	height:500px; */
+/* 	width:500px */
+/* } */
+.wordCloudWrap{
+	margin-top:40px;
+}
+.wordCloudWrap h3{
+	text-align : center;
+}
+.wordCloudWrap > p{
+	font-size:30px;
+	}
+	
+/* 검색 */
+.search {
+  position: relative;
+  width: 300px;
+}
+
+.search_input {
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.search_img {
+  position : absolute;
+  width: 17px;
+  top: 10px;
+  right: 12px;
+  margin: 0;
+}
+/* 검색 끝 */
+
+.menu_img{
+	width: 500px;
+	margin:0 auto;
+}
+.menu_img img{
+	margin-top:50px;
+	
+}
+.recommendWrap{
+	width:90%;
+	height:500px;
+	margin:0 auto;
+	padding:0;
+	margin-top:50px;
+	
+}
+.recommendWrap h3{
+	
+	text-align : center;
+}
+
+.recommendList{
+	margin:0 auto;
+	width:90%;
+	height : 260px;
+	margin-top:40px;
+	display: flex;
+}
+
+.recommendItem{
+	display:block;
+/* 	width:200px; */
+/* 	flex-basis: 200px; */
+	/* max-height:200px; */
+/* 	background:yellow; */
+	margin-right:50px;
+	/* float:left; */
+	text-align:center;
+	flex : 0 0 200px;
+	border : 2px solid #000;
+	border-radius : 10px;
+	
+}
+.back_img{
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+    background:url("../images/babpoolintro2.png");
+    margin-top: 15px;		
+}
+.recommendItem:first-child{
+	margin-left : 50px;
+}
+.recommendItem  img{
+	width : 100%;
+	height: 186px;
+	border-radius: 0 0 10px 10px;
+	margin-top: 15px;
+}
+.re_content{
+	height : 50px;
+	font-size: 13px;
+	padding: 5px;
+}
+.button_tag {
+    float: right;
+    margin-right: 10%;
+    margin-top: 15px;
+}
+.btn_regist{
+	border : none;
+	background-color:transparent;
+   font-size: 16px;
+}
+

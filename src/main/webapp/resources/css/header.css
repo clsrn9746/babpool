@@ -1,0 +1,38 @@
+/* header */
+
+.logo {
+	float: left;
+	margin-left: 100px;
+}
+
+.header>.menu-bar,
+.header>.info {
+	float: left;
+	position: relative;
+	top: 70px;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.menu-bar {
+	width: 800px;
+	display: flex;
+	margin-right: 400px;
+}
+
+.header {
+	width: 1900px;
+	border-bottom: 1px solid #ccc;
+	height: 130px;
+}
+
+#logout {
+	cursor: pointer;
+}
+
+.info {
+	width: 200px;
+	display: flex;
+}
+
+/* header e */

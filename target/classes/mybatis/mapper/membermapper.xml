@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.babpool.member.dao.MemberDao">
+	
+	<sql id="memberSearchAND">
+		<if
+			test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchWord)">
+			AND mem_id || mem_nickname LIKE '%' || #{searchWord} || '%'
+		</if>
+	</sql>
+	 
+	<sql id="memberSearchWHERE">
+		<if
+			test="@org.apache.commons.lang3.StringUtils@isNotBlank(searchWord)">
+			WHERE mem_id || mem_nickname LIKE '%' || #{searchWord} || '%'
+		</if>
+	</sql>
+
+	<select id="getMember" resultType="com.babpool.member.vo.MemberVO">
+	SELECT
+    mem_id  , mem_name  , mem_nickname   
+    , mem_pass   , mem_email   , mem_birth
+    , mem_address    , mem_gender    , mem_food_code
+    , mem_level    , mem_phone    , mem_role
+    , mem_profile , mem_address2 , regist_type , mem_manager
+	FROM
+    	member
+    WHERE
+    	mem_id = #{memId }
+    AND
+    	mem_pass = #{memPass }
+	</select>
+	
+	<select id="getMemberbyId" resultType="com.babpool.member.vo.MemberVO" parameterType="String">
+	SELECT
+    mem_id  , mem_name  , mem_nickname   
+    , mem_pass   , mem_email   , mem_birth
+    , mem_address    , mem_gender    , mem_food_code
+    , mem_level    , mem_phone    , mem_role
+    , mem_profile , mem_address2 , regist_type , mem_manager
+	FROM
+    	member
+    WHERE
+    	mem_id = #{memId }
+	</select>
+	
+	<select id="getTotalRowCount" parameterType="com.babpool.common.vo.SearchVO" resultType="int">
+		SELECT count(*)
+		FROM member
+		<include refid="memberSearchWHERE"></include>
+	</select>
+	
+	
+	<select id="getmemberList" resultType="com.babpool.member.vo.MemberVO" parameterType="com.babpool.common.vo.SearchVO">
+	 SELECT * FROM
+	 (SELECT a.*, rownum AS rnum FROM (
+	 	SELECT 
+		 	mem_id  , mem_name  , mem_nickname   
+	    , mem_pass   , mem_email   , mem_birth
+	    , mem_address    , mem_gender    , mem_food_code
+	    , mem_level    , mem_phone    , mem_role
+	    , mem_profile , mem_address2 , regist_type , mem_manager
+	 FROM
+	 	member
+	 <include refid="memberSearchWHERE"></include>
+ 	 ORDER BY mem_id asc
+	 	) a ) b
+	  WHERE rnum between #{firstRow} and #{lastRow}
+	  
+	</select>
+	
+	
+	<select id="idCheck" resultType="com.babpool.member.vo.MemberVO" parameterType="String">
+		SELECT
+    mem_id  , mem_name  , mem_nickname   
+    , mem_pass   , mem_email   , mem_birth
+    , mem_address    , mem_gender    , mem_food_code
+    , mem_level    , mem_phone    , mem_role
+    , mem_profile , mem_address2 , regist_type , mem_manager
+	FROM
+    	member
+    WHERE
+    	mem_id = #{id}
+	</select>
+	
+	<select id="nickCheck" resultType="com.babpool.member.vo.MemberVO" parameterType="String">
+		SELECT
+    mem_id  , mem_name  , mem_nickname   
+    , mem_pass   , mem_email   , mem_birth
+    , mem_address    , mem_gender    , mem_food_code
+    , mem_level    , mem_phone    , mem_role
+    , mem_profile , mem_address2 , regist_type , mem_manager
+	FROM
+    	member
+    WHERE
+    	mem_nickname = #{nick}
+	</select>
+	
+	
+	<select id="mailCheck" resultType="com.babpool.member.vo.MemberVO" parameterType="String">
+		SELECT
+    mem_id  , mem_name  , mem_nickname   
+    , mem_pass   , mem_email   , mem_birth
+    , mem_address    , mem_gender    , mem_food_code
+    , mem_level    , mem_phone    , mem_role
+    , mem_profile , mem_address2 , regist_type , mem_manager
+	FROM
+    	member
+    WHERE
+    	mem_email = #{mem_email}
+    AND regist_type = 'babpool'
+	</select>
+	
+	<insert id="registMember" parameterType="com.babpool.member.vo.MemberVO">
+	INSERT INTO member (
+   		mem_id   , mem_name  , mem_nickname
+   		, mem_pass   , mem_email   , mem_birth
+   		, mem_address   , mem_gender   , mem_food_code
+   		, mem_level   , mem_phone   , mem_role
+   		, mem_profile , mem_address2 , regist_type , mem_manager
+		) VALUES (
+   		 #{memId} , #{memName} , #{memNickname}
+   		,#{memPass}, #{memEmail}, #{memBirth}
+   		,#{memAddress}, #{memGender}, #{memFoodCode}
+   		, 5.0 		, #{memPhone}, 'N'
+   		,'프사'     , #{memAddress2} , 'babpool' , 'n'
+		)
+	</insert>
+	
+	<insert id="insertMailAuth" >
+    INSERT INTO mail_auth (mail,auth_key,is_auth)
+    values (#{mail},#{authKey},0)
+	</insert>
+	
+	<select id="getMailAuth" parameterType="String" resultType="com.babpool.member.vo.MailAuthVO">
+	    SELECT mail, auth_key, is_auth
+	    FROM mail_auth
+	    WHERE mail=#{mail}   
+	</select>
+	
+	<update id="updateMailAuth" parameterType="String">
+	    UPDATE mail_auth 
+	    SET auth_key=#{authKey}
+	    ,is_auth=0
+	    WHERE mail=#{mail}
+	</update>
+	
+	<update id="completeAuth" parameterType="String">
+	    UPDATE mail_auth SET is_auth=1
+	    WHERE mail=#{mail}
+	</update>
+	
+	<update id="updateRandPw" parameterType="String">
+	    UPDATE member SET mem_pass=#{randString}
+	    WHERE mem_email=#{mail}
+	    AND   regist_type = 'babpool'
+	</update>
+	
+	
+	<update id="memberBan" parameterType="String">
+		UPDATE member SET mem_role = 'Y'
+		WHERE mem_id = #{id}
+	</update>
+
+	<update id="memberPermit" parameterType="String">
+		UPDATE member SET mem_role = 'N'
+		WHERE mem_id = #{id}
+	</update>
+	
+	<update id="updateLikeFood" parameterType="String">
+		UPDATE member SET mem_food_code = #{like}
+		WHERE mem_id = #{id}
+	</update>
+
+	<update id="updatephone" parameterType="String">
+		UPDATE member SET mem_phone = #{phone}
+		WHERE mem_id = #{id}
+	</update>
+	
+	<update id="changePw" parameterType="String">
+		UPDATE member SET mem_pass = #{newpass}
+		WHERE mem_id = #{id}
+	</update>
+	
+	<update id="updateAdmin" parameterType="String">
+		UPDATE member SET mem_manager = 'y'
+		WHERE mem_id = #{id}
+	</update>
+	
+	
+</mapper>
